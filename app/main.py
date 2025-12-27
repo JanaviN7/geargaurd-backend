@@ -1,15 +1,12 @@
 from fastapi import FastAPI
-from app.database import engine
-from app import models
-from app.routers import equipment, requests, teams
 from fastapi.middleware.cors import CORSMiddleware
 
-# create tables
-models.Base.metadata.create_all(bind=engine)
+app = FastAPI(
+    title="GearGuard – Maintenance Tracker",
+    redirect_slashes=True
+)
 
-# CREATE APP FIRST ✅
-app = FastAPI(title="GearGuard – Maintenance Tracker", redirect_slashes = True)
-
+# ✅ CORS MUST COME FIRST
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -18,12 +15,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# root health check
-@app.get("/")
-def root():
-    return {"status": "GearGuard API running"}
-
-# register routers
-app.include_router(teams.router)
-app.include_router(equipment.router)
+# ✅ THEN routers
 app.include_router(requests.router)
+app.include_router(equipment.router)
+app.include_router(teams.router)
