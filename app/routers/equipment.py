@@ -16,6 +16,7 @@ def get_db():
 def create_equipment(eq: schemas.EquipmentCreate, db: Session = Depends(get_db)):
     return crud.create_equipment(db, eq.dict())
 
+@router.get("")
 @router.get("/")
 def list_equipment(db: Session = Depends(get_db)):
     return db.query(models.Equipment).all()

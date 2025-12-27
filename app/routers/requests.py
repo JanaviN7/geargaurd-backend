@@ -39,5 +39,6 @@ def update_request(request_id: int, data: schemas.RequestUpdate, db: Session = D
     db.refresh(req)
     return req
 @router.get("")
+@router.get("")
 def list_requests_no_slash(db: Session = Depends(get_db)):
     return db.query(models.MaintenanceRequest).all()
