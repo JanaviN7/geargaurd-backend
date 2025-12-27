@@ -1,12 +1,14 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.routers import requests, equipment, teams
+
 app = FastAPI(
     title="GearGuard – Maintenance Tracker",
     redirect_slashes=True
 )
 
-# ✅ CORS MUST COME FIRST
+# ✅ CORS FIRST
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -15,7 +17,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ✅ THEN routers
+# ✅ THEN ROUTERS
 app.include_router(requests.router)
 app.include_router(equipment.router)
 app.include_router(teams.router)
