@@ -8,7 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 models.Base.metadata.create_all(bind=engine)
 
 # CREATE APP FIRST ✅
-app = FastAPI(title="GearGuard – Maintenance Tracker")
+app = FastAPI(title="GearGuard – Maintenance Tracker", redirect_slashes = True)
 
 app.add_middleware(
     CORSMiddleware,
